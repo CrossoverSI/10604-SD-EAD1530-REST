@@ -19,7 +19,13 @@ type
     [MVCDoc('Criar novo pedido "201: Created"')]
     [MVCPath('/efetuarPedido')]
     [MVCHTTPMethod([httpPOST])]
-    procedure efetuarPedido(const AContext: TWebContext);
+		procedure efetuarPedido(const AContext: TWebContext);
+
+    [MVCDoc('Consultar pedido "200: OK"')]
+    [MVCPath('/consultarPedido')]
+    [MVCHTTPMethod([httpGET])]
+    procedure consultarPedido(const aContext: TWebContext);
+
   end;
 
 implementation
@@ -32,6 +38,25 @@ uses
   UPedidoServiceImpl, UPedidoRetornoDTOImpl;
 
 { TApp1MainController }
+
+procedure TPizzariaBackendController.consultarPedido(const aContext: TWebContext);
+var
+	oPedidoRetornoDTO: TPedidoRetornoDTO;
+	nr_Doc: String;
+begin
+	nr_Doc := AContext.Request.QueryStringParam('DocumentoCliente');
+	try
+		with TPedidoService.Create do
+		try
+			oPedidoRetornoDTO := consultarPedido(nr_Doc);
+			Render(TJson.ObjectToJsonString(oPedidoRetornoDTO));
+		finally
+			oPedidoRetornoDTO.Free
+		end;
+	finally
+	end;
+	Log.Info('==>Executou o método ', 'consultarPedido');
+end;
 
 procedure TPizzariaBackendController.efetuarPedido(const AContext: TWebContext);
 var

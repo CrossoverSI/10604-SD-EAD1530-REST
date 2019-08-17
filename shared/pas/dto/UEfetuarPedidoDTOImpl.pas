@@ -14,11 +14,9 @@ type
     FPizzaSabor: TPizzaSaborEnum;
     FDocumentoCliente: String;
   published
-    property PizzaTamanho: TPizzaTamanhoEnum read FPizzaTamanho
-      write FPizzaTamanho;
+    property PizzaTamanho: TPizzaTamanhoEnum read FPizzaTamanho write FPizzaTamanho;
     property PizzaSabor: TPizzaSaborEnum read FPizzaSabor write FPizzaSabor;
-    property DocumentoCliente: String read FDocumentoCliente
-      write FDocumentoCliente;
+    property DocumentoCliente: String read FDocumentoCliente write FDocumentoCliente;
   end;
 
 implementation
